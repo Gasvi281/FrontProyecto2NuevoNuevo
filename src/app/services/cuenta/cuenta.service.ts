@@ -12,20 +12,27 @@ export class CuentaService {
 
   constructor(private http: HttpClient) { }
 
-
-  addCuenta(cuenta: Cuenta): Observable<any>{
+  addCuenta(cuenta: Cuenta): Observable<any> {
     const endpoint = `${this.api_url}/CreateAccount`;
     return this.http.post(endpoint, cuenta);
   }
 
-  getCuenta(id: string){
-    const endpoint= `${this.api_url}/${id}`;
+  getCuenta(id: string) {
+    const endpoint = `${this.api_url}/${id}`;
     const headers = {
-      'Content-Type':"application/json",
+      'Content-Type': "application/json",
       'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
-    }
-    return this.http.get<Cuenta>(endpoint, {headers}) ;
+    };
+    return this.http.get<Cuenta>(endpoint, { headers });
   }
 
-  
+  // ✅ Método para actualizar los datos de perfil
+  updateCuenta(id: string, cuenta: Cuenta): Observable<any> {
+    const endpoint = `${this.api_url}/${id}`;
+    const headers = {
+      'Content-Type': "application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    };
+    return this.http.put(endpoint, cuenta, { headers });
+  }
 }

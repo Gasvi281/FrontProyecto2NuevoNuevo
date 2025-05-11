@@ -14,26 +14,28 @@ import { Router } from '@angular/router';
 export class PerfilComponent {
   cuenta: Cuenta;
 
-  constructor(private cuentaService: CuentaService, private Router: Router){
-    
+  constructor(private cuentaService: CuentaService, private Router: Router) {}
 
-  }
-
-  ngOnInit(){
+  ngOnInit() {
     this.getCuenta();
   }
 
-  getCuenta(){
+  getCuenta() {
     const id = localStorage.getItem('id') || '';
     this.cuentaService.getCuenta(id).subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.cuenta = res;
-        console.log(id)
-        console.log(res)
+        console.log(id);
+        console.log(res);
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
       }
-    })
+    });
+  }
+
+  // ✅ Esta es la función que faltaba para que funcione el botón en el HTML
+  goToEditarPerfil(id: string): void {
+    this.Router.navigate(['/perfil/editar', id]);
   }
 }
