@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { Producto } from 'src/app/models/producto.model';
 import { ProductoService } from 'src/app/services/producto/producto.service';
 import { RouterModule } from '@angular/router';
+import { ListaCompraService } from 'src/app/services/listaCompra/listaCompra.service';
 
 @Component({
   selector: 'app-objetoproducto',
@@ -20,6 +21,7 @@ export class ObjetoproductoComponent {
 
   constructor(
     private productoService: ProductoService,
+    private listaCompraService: ListaCompraService,
     private route: ActivatedRoute,
     private fb: FormBuilder
   ){}
@@ -57,5 +59,19 @@ export class ObjetoproductoComponent {
         console.log("Error al encontrar producto");
       }
     })
+  }
+
+  agregarProductoALaLista(){
+    const cuentaId = localStorage.getItem('id');
+    if (!cuentaId || !this.objetoproductoId) return;
+
+    this.listaCompraService.agregarProducto(cuentaId, this.objetoproductoId, 1).subscribe({
+      next: (res) => {
+        console.log('Producto agregado exitosamente', res);
+      },
+      error: (err) => {
+        console.error('Error al agregar producto', err);
+      }
+    });
   }
 }

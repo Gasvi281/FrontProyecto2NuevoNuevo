@@ -1,1 +1,29 @@
-<p>lista works!</p>
+<div class="p-4" *ngIf="listaCompra">
+  <h2 class="mb-4">Lista de Compras</h2>
+
+  <!-- Fecha de creación -->
+  <p><strong>Lista creada en:</strong> {{ listaCompra.fecha | date:'fullDate' }}</p>
+
+  <!-- Tabla de productos -->
+  <table class="mat-elevation-z8 w-full" *ngIf="listaCompra.elementosLista?.length > 0; else sinProductos">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Categoría</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaCompra.elementosLista">
+        <td>{{ item.producto?.nombreProducto }}</td>
+        <td>{{ item.producto?.categoria }}</td>
+        <td>{{ item.cantidad }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Alternativa si no hay productos -->
+  <ng-template #sinProductos>
+    <p>No hay productos en esta lista de compras.</p>
+  </ng-template>
+</div>

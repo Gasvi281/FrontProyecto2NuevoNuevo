@@ -18,6 +18,11 @@
           <span matListItemLine>{{ form.get('estado')?.value }}</span>
         </mat-list-item>
         <mat-list-item>
+          <button mat-raised-button color="accent" (click)="agregarProductoALaLista()">
+            Agregar a mi lista
+          </button>
+        </mat-list-item>
+        <mat-list-item>
             <mat-card-actions class="p-4">
                 <button mat-raised-button color="primary" routerLink="/productos">
                   Volver
