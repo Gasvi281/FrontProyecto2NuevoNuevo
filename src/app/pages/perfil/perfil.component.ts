@@ -14,6 +14,10 @@ import { Router } from '@angular/router';
 export class PerfilComponent {
   cuenta: Cuenta;
 
+  // Arreglos que usaremos en el HTML
+  preferencias: string[] = [];
+  impedimentos: string[] = [];
+
   constructor(private cuentaService: CuentaService, private Router: Router) {}
 
   ngOnInit() {
@@ -23,10 +27,15 @@ export class PerfilComponent {
   getCuenta() {
     const id = localStorage.getItem('id') || '';
     this.cuentaService.getCuenta(id).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.cuenta = res;
-        console.log(id);
-        console.log(res);
+
+        // 🔄 Mapeamos los nombres de productos desde la estructura anidada
+        this.preferencias = (res.preferencias || []).map((p: any) => p.producto?.nombreProducto ?? '[Sin nombre]');
+        this.impedimentos = (res.impedimentos || []).map((i: any) => i.producto?.nombreProducto ?? '[Sin nombre]');
+
+        console.log('Preferencias:', this.preferencias);
+        console.log('Impedimentos:', this.impedimentos);
       },
       error: (err) => {
         console.log(err);
@@ -34,7 +43,6 @@ export class PerfilComponent {
     });
   }
 
-  // ✅ Esta es la función que faltaba para que funcione el botón en el HTML
   goToEditarPerfil(id: string): void {
     this.Router.navigate(['/perfil/editar', id]);
   }

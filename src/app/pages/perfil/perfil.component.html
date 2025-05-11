@@ -21,10 +21,10 @@
         </mat-card-content>
 
         <mat-card-actions class="d-flex justify-content-between">
-  <button mat-raised-button color="primary" (click)="goToEditarPerfil(cuenta.id!)">
-    Editar Perfil
-  </button>
-</mat-card-actions>
+          <button mat-raised-button color="primary" (click)="goToEditarPerfil(cuenta.id!)">
+            Editar Perfil
+          </button>
+        </mat-card-actions>
       </mat-card>
 
       <!-- Tarjeta: Preferencias y restricciones -->
@@ -36,27 +36,29 @@
             <div class="col-6 text-center">
               <h5 class="mb-3 f-w-600">Preferencias</h5>
               <mat-list class="text-start d-inline-block">
-                <mat-list-item>• Producto preferido 1</mat-list-item>
-                <mat-list-item>• Producto preferido 2</mat-list-item>
-                <mat-list-item>• Producto preferido 3</mat-list-item>
+                <mat-list-item *ngFor="let pref of preferencias">
+                  • {{ pref }}
+                </mat-list-item>
               </mat-list>
               <div class="d-flex justify-content-center mt-2">
                 <button mat-stroked-button color="primary">Modificar Preferencias</button>
               </div>
             </div>
 
+
             <!-- Restricciones -->
             <div class="col-6 text-center">
               <h5 class="mb-3 f-w-600">Restricciones</h5>
               <mat-list class="text-start d-inline-block">
-                <mat-list-item>• Producto restringido 1</mat-list-item>
-                <mat-list-item>• Producto restringido 2</mat-list-item>
-                <mat-list-item>• Producto restringido 3</mat-list-item>
+                <mat-list-item *ngFor="let imp of impedimentos">
+                  • {{ imp }}
+                </mat-list-item>
               </mat-list>
               <div class="d-flex justify-content-center mt-2">
                 <button mat-stroked-button color="primary">Modificar Restricciones</button>
               </div>
             </div>
+
           </div>
         </mat-card-content>
       </mat-card>
