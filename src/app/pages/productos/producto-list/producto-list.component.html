@@ -1,0 +1,33 @@
+<!-- Tabla de productos en una tarjeta con estilo -->
+<mat-card class="cardWithShadow theme-card mb-4">
+    <mat-card-header>
+      <mat-card-title class="f-w-600">Lista de Productos</mat-card-title>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of listaProductos">
+            <td hidden>{{producto.id}}</td>
+            <td>{{ producto.nombreProducto }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>{{ producto.estado || 'No especificado' }}</td>
+            <td>
+              <button mat-menu-item (click)="navegarProducto(producto.id)">
+                <mat-icon>edit</mat-icon>
+                <span>Info</span>
+            </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  

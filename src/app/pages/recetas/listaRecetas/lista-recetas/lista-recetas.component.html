@@ -1,0 +1,30 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light">
+  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
+    <div class="col-lg-10 d-flex align-items-center">
+      <mat-card class="cardWithShadow boxed-auth w-100">
+        <mat-card-content class="p-32">
+
+          <h2 class="text-center m-b-24">Lista de Recetas</h2>
+
+          <div *ngFor="let receta of listaRecetas" class="mat-elevation-z4 p-16 m-b-16 bg-white rounded shadow-sm">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <strong>Nombre:</strong> {{ receta.nombre }}
+              </div>
+              <div class="col-md-3">
+                <strong>Dificultad:</strong> {{ receta.dificultad }}
+              </div>
+              <div class="col-md-3">
+                <strong>Categoría:</strong> {{ receta.Categoria }}
+              </div>
+              <div class="col-md-2 text-end">
+                <button mat-stroked-button color="primary" (click)="navegarReceta(receta.nombre)">Info</button>
+              </div>
+            </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
