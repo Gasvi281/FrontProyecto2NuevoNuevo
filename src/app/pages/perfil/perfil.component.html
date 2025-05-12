@@ -1,105 +1,108 @@
 <!-- perfil.component.html con secciones separadas -->
 <div class="container-fluid">
-    <!-- Encabezado estilizado -->
-    <div class="page-header mb-5">
-      <h1 class="page-title f-w-600">Tu perfil</h1>
-    </div>
-  
-    <div class="row" style="min-height: 80vh;">
-      <!-- Columna izquierda: Información del usuario + Preferencias/Restricciones -->
-      <div class="col-lg-4 col-md-6">
-        <!-- Tarjeta: Información del usuario -->
-        <mat-card class="cardWithShadow theme-card mb-4">
-          <mat-card-header style="margin-left: 10%; width: fit-content;">
-            <div mat-card-avatar class="user-avatar" style="background-color: #ccc;"></div>
-            <mat-card-title class="f-w-600">{{ cuenta.nombreUsuario }}</mat-card-title>
-            <mat-card-subtitle>{{ cuenta.email }}</mat-card-subtitle>
-          </mat-card-header>
-  
-          <mat-card-content>
-            <p><strong>Nombre:</strong> {{ cuenta.nombre }}</p>
-          </mat-card-content>
-  
-          <mat-card-actions class="d-flex justify-content-between">
-            <button mat-raised-button color="primary">Editar Perfil</button>
-          </mat-card-actions>
-        </mat-card>
-  
-        <!-- Tarjeta: Preferencias y restricciones -->
-        <mat-card class="cardWithShadow theme-card">
-          <mat-card-content class="b-t-1">
-            <p class="f-w-600">Preferencias y restricciones de productos:</p>
-            <div class="row">
-              <!-- Preferencias -->
-              <div class="col-6 text-center">
-                <h5 class="mb-3 f-w-600">Preferencias</h5>
-                <mat-list class="text-start d-inline-block">
-                  <mat-list-item>• Producto preferido 1</mat-list-item>
-                  <mat-list-item>• Producto preferido 2</mat-list-item>
-                  <mat-list-item>• Producto preferido 3</mat-list-item>
-                </mat-list>
-                <div class="d-flex justify-content-center mt-2">
-                  <button mat-stroked-button color="primary">Modificar Preferencias</button>
-                </div>
-              </div>
-  
-              <!-- Restricciones -->
-              <div class="col-6 text-center">
-                <h5 class="mb-3 f-w-600">Restricciones</h5>
-                <mat-list class="text-start d-inline-block">
-                  <mat-list-item>• Producto restringido 1</mat-list-item>
-                  <mat-list-item>• Producto restringido 2</mat-list-item>
-                  <mat-list-item>• Producto restringido 3</mat-list-item>
-                </mat-list>
-                <div class="d-flex justify-content-center mt-2">
-                  <button mat-stroked-button color="primary">Modificar Restricciones</button>
-                </div>
+  <!-- Encabezado estilizado -->
+  <div class="page-header mb-5">
+    <h1 class="page-title f-w-600">Tu perfil</h1>
+  </div>
+
+  <div class="row" style="min-height: 80vh;">
+    <!-- Columna izquierda: Información del usuario + Preferencias/Restricciones -->
+    <div class="col-lg-4 col-md-6">
+      <!-- Tarjeta: Información del usuario -->
+      <mat-card class="cardWithShadow theme-card mb-4">
+        <mat-card-header style="margin-left: 10%; width: fit-content;">
+          <div mat-card-avatar class="user-avatar" style="background-color: #ccc;"></div>
+          <mat-card-title class="f-w-600">{{ cuenta.nombreUsuario }}</mat-card-title>
+          <mat-card-subtitle>{{ cuenta.email }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p><strong>Nombre:</strong> {{ cuenta.nombre }}</p>
+        </mat-card-content>
+
+        <mat-card-actions class="d-flex justify-content-between">
+          <button mat-raised-button color="primary" (click)="goToEditarPerfil(cuenta.id!)">
+            Editar Perfil
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+      <!-- Tarjeta: Preferencias y restricciones -->
+      <mat-card class="cardWithShadow theme-card">
+        <mat-card-content class="b-t-1">
+          <p class="f-w-600">Preferencias y restricciones de productos:</p>
+          <div class="row">
+            <!-- Preferencias -->
+            <div class="col-6 text-center">
+              <h5 class="mb-3 f-w-600">Preferencias</h5>
+              <mat-list class="text-start d-inline-block">
+                <mat-list-item *ngFor="let pref of preferencias">
+                  • {{ pref }}
+                </mat-list-item>
+              </mat-list>
+              <div class="d-flex justify-content-center mt-2">
+                <button mat-stroked-button color="primary" (click)="abrirModal('preferencias')">Modificar Preferencias</button>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
-  
-      <!-- Columna derecha: Recetas y productos recientes -->
-      <div class="col-lg-8 col-md-6">
-        <div class="row">
-          <!-- Recetas recientes -->
-          <div class="col-md-6">
-            <h4 class="text-decoration-underline text-center f-w-600">Recetas recientes</h4>
-  
-            <mat-card class="b-1 shadow-none mb-3">
-              <img src="https://via.placeholder.com/300x150" class="card-img-top" alt="Imagen receta 1">
-              <mat-card-content>
-                <p class="text-center">Receta reciente #1</p>
-              </mat-card-content>
-            </mat-card>
-  
-            <mat-card class="b-1 shadow-none mb-3">
-              <img src="https://via.placeholder.com/300x150" class="card-img-top" alt="Imagen receta 2">
-              <mat-card-content>
-                <p class="text-center">Receta reciente #2</p>
-              </mat-card-content>
-            </mat-card>
-  
-            <mat-card class="b-1 shadow-none mb-3">
-              <img src="https://via.placeholder.com/300x150" class="card-img-top" alt="Imagen receta 3">
-              <mat-card-content>
-                <p class="text-center">Receta reciente #3</p>
-              </mat-card-content>
-            </mat-card>
+
+
+            <!-- Restricciones -->
+            <div class="col-6 text-center">
+              <h5 class="mb-3 f-w-600">Restricciones</h5>
+              <mat-list class="text-start d-inline-block">
+                <mat-list-item *ngFor="let imp of impedimentos">
+                  • {{ imp }}
+                </mat-list-item>
+              </mat-list>
+              <div class="d-flex justify-content-center mt-2">
+                <button mat-stroked-button color="primary" (click)="abrirModal('impedimentos')">Modificar Restricciones</button>
+              </div>
+            </div>
+
           </div>
-  
-          <!-- Productos comprados -->
-          <div class="col-md-6">
-            <h4 class="text-decoration-underline text-center f-w-600">Productos comprados</h4>
-            <ol class="list-group list-group-numbered">
-              <li class="list-group-item">Producto reciente #1</li>
-              <li class="list-group-item">Producto reciente #2</li>
-              <li class="list-group-item">Producto reciente #3</li>
-            </ol>
-          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Columna derecha: Recetas y productos recientes -->
+    <div class="col-lg-8 col-md-6">
+      <div class="row">
+        <!-- Recetas recientes -->
+        <div class="col-md-6">
+          <h4 class="text-decoration-underline text-center f-w-600">Recetas recientes</h4>
+
+          <mat-card class="b-1 shadow-none mb-3">
+            <img src="https://via.placeholder.com/300x150" class="card-img-top" alt="Imagen receta 1">
+            <mat-card-content>
+              <p class="text-center">Receta reciente #1</p>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="b-1 shadow-none mb-3">
+            <img src="https://via.placeholder.com/300x150" class="card-img-top" alt="Imagen receta 2">
+            <mat-card-content>
+              <p class="text-center">Receta reciente #2</p>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="b-1 shadow-none mb-3">
+            <img src="https://via.placeholder.com/300x150" class="card-img-top" alt="Imagen receta 3">
+            <mat-card-content>
+              <p class="text-center">Receta reciente #3</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <!-- Productos comprados -->
+        <div class="col-md-6">
+          <h4 class="text-decoration-underline text-center f-w-600">Productos comprados</h4>
+          <ol class="list-group list-group-numbered">
+            <li class="list-group-item">Producto reciente #1</li>
+            <li class="list-group-item">Producto reciente #2</li>
+            <li class="list-group-item">Producto reciente #3</li>
+          </ol>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
