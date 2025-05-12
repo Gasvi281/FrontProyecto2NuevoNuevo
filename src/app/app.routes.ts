@@ -45,9 +45,9 @@ export const routes: Routes = [
           import('./pages/recetas/recetas.routes').then((m) => m.RecetasRoutes)
       },
       {
-        path: 'lista',
+        path:'lista',
         loadChildren: ()=>
-          import('./pages/lista/lista/lista.routes').then((m) => m.ListaRoutes)
+          import('./pages/lista-compra/lista-compra.routes').then((m) => m.ListaCompraRoutes)
       }
     ],
   },

@@ -1,30 +1,49 @@
 <mat-card class="b-1 shadow-none">
-    <mat-card-header>
-      <mat-card-title>Información del Producto</mat-card-title>
-    </mat-card-header>
-  
-    <mat-card-content class="b-t-1">
-      <mat-list [formGroup]="form">
+  <mat-card-header>
+    <mat-card-title>Información del Producto</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="b-t-1">
+    <mat-list [formGroup]="form">
+      <mat-list-item>
+        <span matListItemTitle class="f-s-16 f-w-600">Nombre del Producto</span>
+        <span matListItemLine>{{ form.get('nombreProducto')?.value }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matListItemTitle class="f-s-16 f-w-600">Categoría</span>
+        <span matListItemLine>{{ form.get('categoria')?.value }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matListItemTitle class="f-s-16 f-w-600">Estado</span>
+        <span matListItemLine>{{ form.get('estado')?.value }}</span>
+      </mat-list-item>
+
+      <!-- Formulario para agregar cantidad y botón -->
+      <form [formGroup]="foorm">
         <mat-list-item>
-          <span matListItemTitle class="f-s-16 f-w-600">Nombre del Producto</span>
-          <span matListItemLine>{{ form.get('nombreProducto')?.value }}</span>
+          <div class="d-flex align-items-center gap-4 w-100">
+            <div class="flex-grow-1">
+              <mat-label class="f-w-600 m-b-8 d-block">Cantidad</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput type="number" placeholder="Cantidad" formControlName="cantidad" />
+              </mat-form-field>
+            </div>
+            <div>
+              <button mat-raised-button color="accent" (click)="agregarProductoALaLista()">
+                Agregar a mi lista
+              </button>
+            </div>
+          </div>
         </mat-list-item>
-        <mat-list-item>
-          <span matListItemTitle class="f-s-16 f-w-600">Categoría</span>
-          <span matListItemLine>{{ form.get('categoria')?.value }}</span>
-        </mat-list-item>
-        <mat-list-item>
-          <span matListItemTitle class="f-s-16 f-w-600">Estado</span>
-          <span matListItemLine>{{ form.get('estado')?.value }}</span>
-        </mat-list-item>
-        <mat-list-item>
-            <mat-card-actions class="p-4">
-                <button mat-raised-button color="primary" routerLink="/productos">
-                  Volver
-                </button>
-            </mat-card-actions>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
-  
+      </form>
+
+      <mat-list-item>
+        <mat-card-actions class="p-4">
+          <button mat-raised-button color="primary" routerLink="/productos">
+            Volver
+          </button>
+        </mat-card-actions>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
