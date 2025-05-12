@@ -36,8 +36,9 @@ export class AppSideRegisterComponent {
       email: this.form.value.email!,
       nombre: this.form.value.name!,
       password: this.form.value.password!,
-      ProductosP: [],
-      ProductosI: [],
+      preferencias: [],
+      impedimentos: [],
+
     }
 
     this.cuentaService.addCuenta(cuenta).subscribe({

@@ -4,6 +4,9 @@ import { MaterialModule } from 'src/app/material.module';
 import { Cuenta } from 'src/app/models/cuenta.model';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { EditarProductosModalComponent } from 'src/app/components/editar-productos-modal/editar-productos-modal.component';
+
 
 @Component({
   selector: 'perfil',
@@ -14,26 +17,53 @@ import { Router } from '@angular/router';
 export class PerfilComponent {
   cuenta: Cuenta;
 
-  constructor(private cuentaService: CuentaService, private Router: Router){
-    
+  // Arreglos que usaremos en el HTML
+  preferencias: string[] = [];
+  impedimentos: string[] = [];
 
-  }
+  constructor(private cuentaService: CuentaService, private Router: Router, private dialog: MatDialog) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.getCuenta();
   }
 
-  getCuenta(){
+  getCuenta() {
     const id = localStorage.getItem('id') || '';
     this.cuentaService.getCuenta(id).subscribe({
-      next:(res)=>{
+      next: (res: any) => {
         this.cuenta = res;
-        console.log(id)
-        console.log(res)
+
+        // 🔄 Mapeamos los nombres de productos desde la estructura anidada
+        this.preferencias = (res.preferencias || []).map((p: any) => p.producto?.nombreProducto ?? '[Sin nombre]');
+        this.impedimentos = (res.impedimentos || []).map((i: any) => i.producto?.nombreProducto ?? '[Sin nombre]');
+
+        console.log('Preferencias:', this.preferencias);
+        console.log('Impedimentos:', this.impedimentos);
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
       }
-    })
+    });
   }
+
+  goToEditarPerfil(id: string): void {
+    this.Router.navigate(['/perfil/editar', id]);
+  }
+
+  abrirModal(tipo: 'preferencias' | 'impedimentos'): void {
+  const dialogRef = this.dialog.open(EditarProductosModalComponent, {
+    data: {
+      cuentaId: this.cuenta.id,
+      tipo
+    },
+    width: '500px' // ajustable
+  });
+
+  dialogRef.afterClosed().subscribe((resultado) => {
+    if (resultado) {
+      this.getCuenta(); // 🔄 recarga los datos del perfil si hubo cambios
+    }
+  });
+}
+
 }

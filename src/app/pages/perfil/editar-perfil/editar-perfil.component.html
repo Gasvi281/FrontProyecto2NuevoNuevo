@@ -1,0 +1,48 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header class="d-flex justify-content-between align-items-center">
+        <mat-card-title class="m-b-0">Modificar perfil</mat-card-title>
+        <div class="m-t-12">
+            <button mat-flat-button color="primary" class="m-r-8" (click)="guardarCambios()">
+                Guardar
+            </button>
+        </div>
+    </mat-card-header>
+
+    <mat-card-content class="b-t-1">
+        <form [formGroup]="form">
+            <div class="row">
+                <!-- Campo: Nombre -->
+                <div class="col-lg-6 m-b-16">
+                    <mat-label class="f-w-600 m-b-8 d-block">Nombre</mat-label>
+                    <mat-form-field appearance="outline" class="w-100" color="primary">
+                        <input matInput placeholder="Nombre completo" formControlName="nombre" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Campo: Nombre de Usuario -->
+                <div class="col-lg-6 m-b-16">
+                    <mat-label class="f-w-600 m-b-8 d-block">Nombre de usuario</mat-label>
+                    <mat-form-field appearance="outline" class="w-100" color="primary">
+                        <input matInput placeholder="Usuario" formControlName="nombreUsuario" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Campo: Email -->
+                <div class="col-lg-6 m-b-16">
+                    <mat-label class="f-w-600 m-b-8 d-block">Email</mat-label>
+                    <mat-form-field appearance="outline" class="w-100" color="primary">
+                        <input matInput placeholder="Correo electrónico" formControlName="email" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Campo: Contraseña -->
+                <div class="col-lg-6 m-b-16">
+                    <mat-label class="f-w-600 m-b-8 d-block">Contraseña</mat-label>
+                    <mat-form-field appearance="outline" class="w-100" color="primary">
+                        <input matInput placeholder="Nueva contraseña" type="password" formControlName="password" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

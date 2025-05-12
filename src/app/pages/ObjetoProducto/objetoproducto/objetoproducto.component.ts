@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { Producto } from 'src/app/models/producto.model';
 import { ProductoService } from 'src/app/services/producto/producto.service';
 import { RouterModule } from '@angular/router';
+import { ListaCompraService } from 'src/app/services/listaCompra/listaCompra.service';
 
 @Component({
   selector: 'app-objetoproducto',
@@ -14,12 +15,16 @@ import { RouterModule } from '@angular/router';
   styleUrl: './objetoproducto.component.scss'
 })
 export class ObjetoproductoComponent {
-  form!: FormGroup;
+  form!: FormGroup; 
+  foorm = new FormGroup({
+    cantidad: new FormControl(1, [Validators.required, Validators.min(1)])
+  })
   editMode: boolean | false;
   objetoproductoId: string;
 
   constructor(
     private productoService: ProductoService,
+    private listaCompraService: ListaCompraService,
     private route: ActivatedRoute,
     private fb: FormBuilder
   ){}
@@ -57,5 +62,19 @@ export class ObjetoproductoComponent {
         console.log("Error al encontrar producto");
       }
     })
+  }
+
+  agregarProductoALaLista(){
+    const cuentaId = localStorage.getItem('id');
+    if (!cuentaId || !this.objetoproductoId) return;
+
+    this.listaCompraService.agregarProducto(cuentaId, this.objetoproductoId, this.foorm.value.cantidad || 0).subscribe({
+      next: (res) => {
+        console.log('Producto agregado exitosamente', res);
+      },
+      error: (err) => {
+        console.error('Error al agregar producto', err);
+      }
+    });
   }
 }
