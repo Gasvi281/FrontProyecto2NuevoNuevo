@@ -25,6 +25,18 @@ export class ListaCompraService {
     return this.http.post(endpoint, body, {headers})
   }
 
+  eliminarProducto(cuentaId: string, productoId: string){
+    const endpoint = `${this.api_url}/${cuentaId}`;
+    const headers = {
+      'Content-Type':"application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    }
+    const body = {
+      productoId
+    }
+    return this.http.put(endpoint, body, {headers});
+  }
+
   getListaById(id: string){
     const endpoint = `${this.api_url}/${id}`;
     const headers = {

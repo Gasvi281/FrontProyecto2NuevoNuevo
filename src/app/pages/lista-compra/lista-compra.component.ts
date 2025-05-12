@@ -35,4 +35,19 @@ export class ListaCompraComponent {
       }
     })
   }
+
+  eliminarDeLaLista(productoId: string){
+    const cuentaId = localStorage.getItem('id');
+    if(!cuentaId || !productoId) return
+
+    this.listaCompraService.eliminarProducto(cuentaId, productoId).subscribe({
+      next: (res) =>{
+        console.log("producto eliminado")
+        this.getListaById();
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
+  }
 }

@@ -7,13 +7,18 @@
   <mat-card-content class="b-t-1">
     <mat-list>
       <mat-list-item *ngFor="let producto of listaCompra.elementosLista">
-        <div class="w-100">
-          <span matListItemTitle class="f-s-16 f-w-600">
-            {{ producto.Producto?.nombreProducto || 'Producto sin nombre' }}
-          </span>
-          <span matListItemLine>
-            Cantidad: {{ producto.cantidad || 'N/A' }}
-          </span>
+        <div class="w-100 d-flex justify-between items-center">
+          <div>
+            <span matListItemTitle class="f-s-16 f-w-600">
+              {{ producto.Producto?.nombreProducto || 'Producto sin nombre' }}
+            </span>
+            <span matListItemLine>
+              Cantidad: {{ producto.cantidad || 'N/A' }}
+            </span>
+          </div>
+          <button mat-icon-button color="warn" (click)="eliminarDeLaLista(producto.Producto?.id || '')">
+            <mat-icon>delete</mat-icon>
+          </button>
         </div>
       </mat-list-item>
     </mat-list>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { Producto } from 'src/app/models/producto.model';
@@ -15,7 +15,10 @@ import { ListaCompraService } from 'src/app/services/listaCompra/listaCompra.ser
   styleUrl: './objetoproducto.component.scss'
 })
 export class ObjetoproductoComponent {
-  form!: FormGroup;
+  form!: FormGroup; 
+  foorm = new FormGroup({
+    cantidad: new FormControl(1, [Validators.required, Validators.min(1)])
+  })
   editMode: boolean | false;
   objetoproductoId: string;
 
@@ -65,7 +68,7 @@ export class ObjetoproductoComponent {
     const cuentaId = localStorage.getItem('id');
     if (!cuentaId || !this.objetoproductoId) return;
 
-    this.listaCompraService.agregarProducto(cuentaId, this.objetoproductoId, 1).subscribe({
+    this.listaCompraService.agregarProducto(cuentaId, this.objetoproductoId, this.foorm.value.cantidad || 0).subscribe({
       next: (res) => {
         console.log('Producto agregado exitosamente', res);
       },
