@@ -6,5 +6,5 @@ export interface ListaCompra {
   cuentaId: string;
   fecha: Date;
   cuenta?: Cuenta; // opcional si necesitas los datos de la cuenta asociados
-  productos: ProductoLista[];
+  elementosLista: ProductoLista[];
 }
