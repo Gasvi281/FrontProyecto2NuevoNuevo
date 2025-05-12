@@ -35,4 +35,41 @@ export class CuentaService {
     };
     return this.http.put(endpoint, cuenta, { headers });
   }
+
+  agregarPreferencia(cuentaId: string, productoId: string) {
+  const endpoint = `${this.api_url}/pref/${cuentaId}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+  };
+  return this.http.post(endpoint, { productoId }, { headers });
+}
+
+eliminarPreferencia(cuentaId: string, productoId: string) {
+  const endpoint = `${this.api_url}/pref/${cuentaId}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+  };
+  return this.http.put(endpoint, { productoId }, { headers });
+}
+
+agregarImpedimento(cuentaId: string, productoId: string) {
+  const endpoint = `${this.api_url}/imp/${cuentaId}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+  };
+  return this.http.post(endpoint, { productoId }, { headers });
+}
+
+eliminarImpedimento(cuentaId: string, productoId: string) {
+  const endpoint = `${this.api_url}/imp/${cuentaId}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+  };
+  return this.http.put(endpoint, { productoId }, { headers });
+}
+
 }

@@ -4,6 +4,9 @@ import { MaterialModule } from 'src/app/material.module';
 import { Cuenta } from 'src/app/models/cuenta.model';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { EditarProductosModalComponent } from 'src/app/components/editar-productos-modal/editar-productos-modal.component';
+
 
 @Component({
   selector: 'perfil',
@@ -18,7 +21,7 @@ export class PerfilComponent {
   preferencias: string[] = [];
   impedimentos: string[] = [];
 
-  constructor(private cuentaService: CuentaService, private Router: Router) {}
+  constructor(private cuentaService: CuentaService, private Router: Router, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.getCuenta();
@@ -46,4 +49,21 @@ export class PerfilComponent {
   goToEditarPerfil(id: string): void {
     this.Router.navigate(['/perfil/editar', id]);
   }
+
+  abrirModal(tipo: 'preferencias' | 'impedimentos'): void {
+  const dialogRef = this.dialog.open(EditarProductosModalComponent, {
+    data: {
+      cuentaId: this.cuenta.id,
+      tipo
+    },
+    width: '500px' // ajustable
+  });
+
+  dialogRef.afterClosed().subscribe((resultado) => {
+    if (resultado) {
+      this.getCuenta(); // 🔄 recarga los datos del perfil si hubo cambios
+    }
+  });
+}
+
 }
