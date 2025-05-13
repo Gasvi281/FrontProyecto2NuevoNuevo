@@ -26,7 +26,6 @@ export class CuentaService {
     return this.http.get<Cuenta>(endpoint, { headers });
   }
 
-  // ✅ Método para actualizar los datos de perfil
   updateCuenta(id: string, cuenta: Cuenta): Observable<any> {
     const endpoint = `${this.api_url}/${id}`;
     const headers = {

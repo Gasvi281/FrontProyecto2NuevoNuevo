@@ -5,8 +5,8 @@ export interface Cuenta {
   nombreUsuario: string;
   email: string;
   password: string;
-  preferencias?: any[];  // ✅ igual que en backend
-  impedimentos?: any[];  // ✅ igual que en backend
+  preferencias?: any[];
+  impedimentos?: any[];
   lista?: ListaCompra;
   estado?: string;
 }
