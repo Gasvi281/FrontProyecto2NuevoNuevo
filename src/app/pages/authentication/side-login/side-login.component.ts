@@ -8,6 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { CommonModule } from '@angular/common';
 import { Token } from '@angular/compiler';
+import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
+import { Cuenta } from 'src/app/models/cuenta.model';
 
 @Component({
   selector: 'app-side-login',
@@ -15,7 +17,7 @@ import { Token } from '@angular/compiler';
   templateUrl: './side-login.component.html',
 })
 export class AppSideLoginComponent {
-  constructor(private router: Router, private authService: AuthenticationService) {}
+  constructor(private router: Router, private authService: AuthenticationService, private cuentaService: CuentaService) { }
 
   form = new FormGroup({
     uname: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -29,18 +31,32 @@ export class AppSideLoginComponent {
   submit() {
     const { uname, password } = this.form.value;
     this.authService.authenticate(uname || '', password || '').subscribe({
-      next:(res)=>{
+      next: (res) => {
         localStorage.setItem("AuthToken", res.token);
-        localStorage.setItem("id", res.id);
-        console.log(res);
-        this.router.navigate(['/']);
-        console.log(res.token);
-        console.log(res.id)
+        this.cuentaService.getCuenta(res.id).subscribe({
+          next: (cuenta: Cuenta) => {
+            if (cuenta.estado === 'Activo') {
+              localStorage.setItem("id", res.id);
+              console.log(res);
+              this.router.navigate(['/']);
+              console.log(res.token);
+              console.log(res.id);
+            } else {
+              localStorage.removeItem("AuthToken");
+              alert("Lo sentimos, esta cuenta esta desactivada");
+              this.router.navigate(['authentication/login']);
+            }
+          },
+          error: (err) => {
+            console.error("Error al obtener la cuenta:", err);
+            alert("No se pudo obtener la información de la cuenta.");
+          }
+        });
       },
-      error:(err)=>{
-        console.log(err);
-        alert("No se pudo iniciar sesion");
-      }
-    })
+        error: (err) => {
+          console.log(err);
+          alert("No se pudo iniciar sesion");
+        }
+      })
   }
 }

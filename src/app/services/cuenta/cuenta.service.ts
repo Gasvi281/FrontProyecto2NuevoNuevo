@@ -71,4 +71,13 @@ eliminarImpedimento(cuentaId: string, productoId: string) {
   return this.http.put(endpoint, { productoId }, { headers });
 }
 
+desactivarCuenta(cuentaId: string){
+  const endpoint = `${this.api_url}/cambiarEstado/${cuentaId}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+  };
+  return this.http.put(endpoint, {}, {headers});
+}
+
 }

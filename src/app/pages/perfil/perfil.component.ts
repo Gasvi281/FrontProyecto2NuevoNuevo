@@ -45,6 +45,20 @@ export class PerfilComponent {
     });
   }
 
+  desactivarCuenta(){
+    const id = localStorage.getItem('id') || '';
+    this.cuentaService.desactivarCuenta(id).subscribe({
+      next: (res)=>{
+        alert("Cuenta desactivada exitosamente");
+        this.Router.navigate(['/authentication/login'])
+      }, 
+      error: (err)=>{
+        alert("error, no se pudo desactivar");
+        console.log(err);
+      }
+    })
+  }
+
   goToEditarPerfil(id: string): void {
     this.Router.navigate(['/perfil/editar', id]);
   }

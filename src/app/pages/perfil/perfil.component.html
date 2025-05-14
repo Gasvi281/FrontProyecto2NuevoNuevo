@@ -21,9 +21,14 @@
         </mat-card-content>
 
         <mat-card-actions class="d-flex justify-content-between">
-          <button mat-raised-button color="primary" (click)="goToEditarPerfil(cuenta.id!)">
-            Editar Perfil
-          </button>
+          <div class="d-flex gap-2">
+            <button mat-raised-button color="primary" (click)="goToEditarPerfil(cuenta.id!)">
+              Editar Perfil
+            </button>
+            <button mat-raised-button color="warn" (click)="desactivarCuenta()">
+              Desactivar Cuenta
+            </button>
+          </div>
         </mat-card-actions>
       </mat-card>
 
@@ -44,7 +49,6 @@
                 <button mat-stroked-button color="primary" (click)="abrirModal('preferencias')">Modificar Preferencias</button>
               </div>
             </div>
-
 
             <!-- Restricciones -->
             <div class="col-6 text-center">
