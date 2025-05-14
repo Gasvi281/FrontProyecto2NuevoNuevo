@@ -6,17 +6,13 @@ import { AppDailyActivitiesComponent } from 'src/app/components/daily-activities
 import { AppBlogCardsComponent } from 'src/app/components/blog-card/blog-card.component';
 import { AppRevenueProductComponent } from 'src/app/components/revenue-product/revenue-product.component';
 import { AppRevenueForecastComponent } from 'src/app/components/revenue-forecast/revenue-forecast.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-starter',
   imports: [
     MaterialModule,
-    AppNewCustomersComponent,
-    AppTotalIncomeComponent,
-    AppDailyActivitiesComponent,
-    AppBlogCardsComponent,
-    AppRevenueProductComponent,
-    AppRevenueForecastComponent,
+    RouterModule
   ],
   templateUrl: './starter.component.html',
   encapsulation: ViewEncapsulation.None,

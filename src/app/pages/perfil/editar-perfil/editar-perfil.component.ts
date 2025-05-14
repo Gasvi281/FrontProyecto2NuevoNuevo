@@ -54,7 +54,7 @@ export class EditarPerfilComponent {
           nombre: cuenta.nombre,
           nombreUsuario: cuenta.nombreUsuario,
           email: cuenta.email,
-          password: '' // Dejar en blanco por seguridad
+          password: '' 
         });
       },
       error: () => {
@@ -70,26 +70,26 @@ export class EditarPerfilComponent {
     return;
   }
 
-  console.log('Formulario válido. Datos a enviar:', this.form.value); // 👈 PASO 1
+  console.log('Formulario válido. Datos a enviar:', this.form.value); 
 
   const cuentaData: Cuenta = this.form.value;
 
   if (this.editMode && this.cuentaId) {
-    console.log('Edit mode activado. ID:', this.cuentaId); // 👈 PASO 2
+    console.log('Edit mode activado. ID:', this.cuentaId); 
 
     this.cuentaService.updateCuenta(this.cuentaId, cuentaData).subscribe({
       next: () => {
-        console.log('Perfil actualizado correctamente'); // 👈 PASO 3
+        console.log('Perfil actualizado correctamente'); 
         alert('Perfil actualizado correctamente');
         this.router.navigate(['/perfil']);
       },
       error: (err) => {
-        console.error('Error al actualizar el perfil:', err); // 👈 PASO 4
+        console.error('Error al actualizar el perfil:', err); 
         alert('Ocurrió un error al actualizar el perfil');
       }
     });
   } else {
-    console.warn('No se cumple editMode o no hay cuentaId'); // 👈 PASO 5
+    console.warn('No se cumple editMode o no hay cuentaId'); 
   }
 }
 

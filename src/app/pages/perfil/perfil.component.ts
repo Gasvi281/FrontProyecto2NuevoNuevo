@@ -17,7 +17,7 @@ import { EditarProductosModalComponent } from 'src/app/components/editar-product
 export class PerfilComponent {
   cuenta: Cuenta;
 
-  // Arreglos que usaremos en el HTML
+
   preferencias: string[] = [];
   impedimentos: string[] = [];
 
@@ -33,7 +33,6 @@ export class PerfilComponent {
       next: (res: any) => {
         this.cuenta = res;
 
-        // 🔄 Mapeamos los nombres de productos desde la estructura anidada
         this.preferencias = (res.preferencias || []).map((p: any) => p.producto?.nombreProducto ?? '[Sin nombre]');
         this.impedimentos = (res.impedimentos || []).map((i: any) => i.producto?.nombreProducto ?? '[Sin nombre]');
 
@@ -56,13 +55,11 @@ export class PerfilComponent {
       cuentaId: this.cuenta.id,
       tipo
     },
-    width: '500px' // ajustable
+    width: '500px'
   });
 
   dialogRef.afterClosed().subscribe((resultado) => {
-    if (resultado) {
-      this.getCuenta(); // 🔄 recarga los datos del perfil si hubo cambios
-    }
+      this.getCuenta(); 
   });
 }
 
