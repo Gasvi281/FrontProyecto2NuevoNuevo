@@ -1,0 +1,35 @@
+<mat-card class="cardWithShadow m-t-16">
+  <mat-card-content>
+    <div class="d-flex">
+      <div class="m-r-auto m-b-8">
+        <mat-card-title>Productos agregados</mat-card-title>
+        <mat-card-subtitle>Lista de ingredientes de la receta</mat-card-subtitle>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="w-100">
+        <thead>
+          <tr>
+            <th class="f-w-600 f-s-14">Nombre del producto</th>
+            <th class="f-w-600 f-s-14">Categoría</th>
+            <th class="f-w-600 f-s-14">Cantidad</th>
+            <th class="f-w-600 f-s-14">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingrediente of productosAgregados">
+            <td>{{ ingrediente.producto.nombreProducto }}</td>
+            <td>{{ ingrediente.producto.categoria }}</td>
+            <td>{{ ingrediente.cantidad }}</td>
+            <td>
+              <button mat-icon-button color="warn" (click)="eliminarProducto(ingrediente)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

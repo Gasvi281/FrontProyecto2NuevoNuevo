@@ -5,5 +5,6 @@ export interface Recetas{
     nombre: string;
     dificultad: number;
     Categoria: string;
+    estado?: string;
     ingredientes?: IngredientesReceta[];
 }
