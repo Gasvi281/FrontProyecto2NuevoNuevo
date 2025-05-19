@@ -25,6 +25,11 @@ export const navItems: NavItem[] = [
     route: '/lista'
   },
   {
+    displayName:'Comentarios',
+    iconName: 'solar:reorder-broken',
+    route: '/comentarios'
+  },
+  {
     navCap: 'Extra',
     divider: true
   },

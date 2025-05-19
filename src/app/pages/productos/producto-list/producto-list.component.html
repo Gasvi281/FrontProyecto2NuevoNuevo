@@ -1,33 +1,42 @@
 <!-- Tabla de productos en una tarjeta con estilo -->
 <mat-card class="cardWithShadow theme-card mb-4">
-    <mat-card-header>
-      <mat-card-title class="f-w-600">Lista de Productos</mat-card-title>
-    </mat-card-header>
-  
-    <mat-card-content>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let producto of listaProductos">
-            <td hidden>{{producto.id}}</td>
-            <td>{{ producto.nombreProducto }}</td>
-            <td>{{ producto.categoria }}</td>
-            <td>{{ producto.estado || 'No especificado' }}</td>
-            <td>
-              <button mat-menu-item (click)="navegarProducto(producto.id)">
-                <mat-icon>edit</mat-icon>
-                <span>Info</span>
+  <mat-card-header class="d-flex justify-content-between align-items-center">
+    <mat-card-title class="f-w-600">Lista de Productos</mat-card-title>
+    <button mat-flat-button color="primary" (click)="crearProducto()">
+      <mat-icon class="m-r-4">add</mat-icon>
+      Agregar producto
+    </button>
+  </mat-card-header>
+
+  <mat-card-content>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of listaProductos">
+          <td hidden>{{ producto.id }}</td>
+          <td>{{ producto.nombreProducto }}</td>
+          <td>{{ producto.categoria }}</td>
+          <td>{{ producto.estado || 'No especificado' }}</td>
+          <td class="d-flex gap-2">
+            <!-- Botón para ver info -->
+            <button mat-icon-button color="accent" (click)="navegarProducto(producto.id)" matTooltip="Ver producto">
+              <mat-icon>info</mat-icon>
             </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </mat-card-content>
-  </mat-card>
-  
+
+            <!-- Botón para editar -->
+            <button mat-icon-button color="primary" (click)="editarProducto(producto.id)" matTooltip="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+</mat-card>

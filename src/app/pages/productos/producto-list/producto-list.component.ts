@@ -36,7 +36,29 @@ export class ProductoListComponent {
 
   navegarProducto(id?: string){
     if(id){
-      this.router.navigate(['productos/producto',id])
+      this.productoService.getProductoById(id).subscribe({
+        next:(res: Producto) =>{
+          if(res.estado==='Inactivo'){
+            alert('Producto inhabilitado')
+          }
+          else{
+            this.router.navigate(['productos/producto',id])
+          }
+        },
+        error:(err)=>{
+          console.log(err)
+        }
+      })
+    }
+  }
+
+  crearProducto(){
+    this.router.navigate(['productos/crear'])
+  }
+
+  editarProducto(id?: string){
+    if(id){
+      this.router.navigate(['productos/editar',id])
     }
   }
 }

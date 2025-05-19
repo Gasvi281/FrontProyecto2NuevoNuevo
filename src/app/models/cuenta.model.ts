@@ -1,4 +1,5 @@
 import { ListaCompra } from './lista.model';
+import { Comentario } from './comentario.model';
 export interface Cuenta {
   id?: string;
   nombre: string;
@@ -7,6 +8,7 @@ export interface Cuenta {
   password: string;
   preferencias?: any[];
   impedimentos?: any[];
+  comentarios?: Comentario[];
   lista?: ListaCompra;
   estado?: string;
 }
