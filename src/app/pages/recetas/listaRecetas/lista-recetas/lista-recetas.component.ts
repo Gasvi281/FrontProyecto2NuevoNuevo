@@ -32,9 +32,38 @@ export class ListaRecetasComponent {
     })
   }
 
-  navegarReceta(nombre?: string){
-    if(nombre){
-      this.router.navigate(['/recetas/receta', nombre]);
+  navegarReceta(id: string){
+    if(id){
+      this.recetaService.getRecetaById(id).subscribe({
+        next: (res: Recetas)=>{
+          if(res.estado === 'Inactivo'){
+            alert("Lo sentimos, esta receta esta desactivada");
+          } else{
+            this.router.navigate(['/recetas/receta/objeto', id]);
+          }
+        },
+        error: (err)=>{
+          console.log(err);
+        }
+      })
     }
+  }
+
+  navegarAgregarReceta(){
+    this.router.navigate(['/recetas/receta/add']);
+  }
+
+  changeRecetaStatus(receta: Recetas){
+    const recetaId = receta.id;
+    const estado = receta.estado === "Activo" ? "Inactivo": "Activo";
+    this.recetaService.changeRecetaStatus(recetaId || '', estado).subscribe({
+      next: ()=>{
+        alert("Se ha cambiado el estado de la receta");
+        this.getRecetas();
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
   }
 }

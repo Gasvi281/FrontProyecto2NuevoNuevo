@@ -2,7 +2,7 @@ import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { IngredientesReceta } from 'src/app/models/ingredientesReceta.model';
 import { RecetaService } from 'src/app/services/receta/receta.service';
@@ -15,10 +15,12 @@ import { RecetaService } from 'src/app/services/receta/receta.service';
 })
 export class ObjetoRecetaComponent {
   form!: FormGroup;
-  objetoRecetaNombre: string;
+  recetaId: string;
+  estadoReceta: string;
   ingredientes: IngredientesReceta[] = []
 
   constructor( private recetaService: RecetaService,
+    private router: Router,
      private route: ActivatedRoute, 
      private fb: FormBuilder){}
 
@@ -34,27 +36,33 @@ export class ObjetoRecetaComponent {
     this.initForm();
 
     this.route.paramMap.subscribe(params=>{
-      const nombre = params.get('nombre');
-      if(nombre){
-        this.objetoRecetaNombre = nombre;
-        this.getRecetaByNombre(nombre);
+      const recetaId = params.get('id');
+      if(recetaId){
+        this.recetaId = recetaId;
+        this.getRecetaById(recetaId);
       }
     })  
   }
 
-  getRecetaByNombre(nombre: string){
-    this.recetaService.getRecetaByNombre(nombre).subscribe({
+  getRecetaById(id: string){
+    this.recetaService.getRecetaById(id).subscribe({
       next: (res)=>{
+        this.recetaId = res.id || '';
         this.form.patchValue({
           nombre: res.nombre,
           dificultad: res.dificultad,
           categoria: res.Categoria,
         });
+        this.estadoReceta = res.estado ||'';
         this.ingredientes = res.ingredientes || [];
       },
       error: (err)=>{
         console.log(err);
       }
     })
+  }
+
+  goToEditarReceta(id: string){
+    this.router.navigate(['/recetas/receta/editar', id]);
   }
 }

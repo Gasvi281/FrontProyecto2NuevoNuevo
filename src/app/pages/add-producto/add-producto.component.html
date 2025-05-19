@@ -1,0 +1,36 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Agregar Ingrediente</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="b-t-1">
+    <form [formGroup]="form" (ngSubmit)="agregarIngrediente()">
+      <div class="row">
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Producto</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="id" placeholder="Seleccione un producto">
+              <mat-option *ngFor="let producto of productosL" [value]="producto.id">
+                {{ producto.nombreProducto }} - {{ producto.categoria }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Cantidad</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput type="number" placeholder="Cantidad" formControlName="cantidad" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="m-t-12">
+        <button mat-flat-button color="primary" class="m-r-8" type="submit" [disabled]="form.invalid">
+          Agregar
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
