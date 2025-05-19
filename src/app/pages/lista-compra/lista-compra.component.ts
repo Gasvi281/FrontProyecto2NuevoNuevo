@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ListaCompra } from 'src/app/models/lista.model';
-import { ListaCompraService } from 'src/app/services/listaCompra/listaCompra.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListaCompraService } from 'src/app/services/listaCompra/listaCompra.service';
 
 @Component({
   selector: 'app-lista-compra',

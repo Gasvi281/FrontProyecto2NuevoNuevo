@@ -1,0 +1,39 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header class="d-flex justify-content-between align-items-center">
+    <mat-card-title class="f-w-600">Comentarios</mat-card-title>
+    <button mat-flat-button color="primary" (click)="crearComentario()">
+      <mat-icon class="m-r-4">add</mat-icon>
+      Agregar comentario
+    </button>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="comentarios && comentarios.length > 0; else noComentarios">
+    <div class="d-flex flex-column gap-4">
+      <mat-card *ngFor="let comentario of comentarios" class="p-4">
+        <mat-card-header>
+          <mat-card-title class="f-s-15">
+            {{ comentario.cuenta?.nombreUsuario || 'Usuario desconocido' }}
+          </mat-card-title>
+          <mat-card-subtitle class="text-muted f-s-13">
+            {{ comentario.fecha | date: 'medium' }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="mt-2">
+          <p class="mb-3 f-s-14">
+            {{ comentario.comentario }}
+          </p>
+          <span class="badge bg-secondary text-white px-2 py-1 rounded">
+            Estado: {{ comentario.estado || 'Sin estado' }}
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card-content>
+
+  <ng-template #noComentarios>
+    <div class="text-center mt-4 text-muted f-s-14">
+      No hay comentarios disponibles.
+    </div>
+  </ng-template>
+</mat-card>

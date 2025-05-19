@@ -48,6 +48,11 @@ export const routes: Routes = [
         path:'lista',
         loadChildren: ()=>
           import('./pages/lista-compra/lista-compra.routes').then((m) => m.ListaCompraRoutes)
+      },
+      {
+        path:'comentarios',
+        loadChildren: ()=>
+          import('./pages/comentarios/comentario.routes').then((m) => m.ComentarioRoutes)
       }
     ],
   },

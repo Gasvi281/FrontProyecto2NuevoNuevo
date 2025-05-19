@@ -1,0 +1,44 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header class="d-flex justify-content-between align-items-center">
+        <mat-card-title class="m-b-0">Modificar producto</mat-card-title>
+        <div class="m-t-12">
+            <button mat-flat-button color="primary" class="m-r-8" (click)="guardarCambios()">
+                Guardar
+            </button>
+        </div>
+    </mat-card-header>
+
+    <mat-card-content class="b-t-1">
+        <form [formGroup]="form">
+            <div class="row">
+                <!-- Campo: Nombre del producto -->
+                <div class="col-lg-6 m-b-16">
+                    <mat-label class="f-w-600 m-b-8 d-block">Nombre del producto</mat-label>
+                    <mat-form-field appearance="outline" class="w-100" color="primary">
+                        <input matInput placeholder="Nombre del producto" formControlName="nombreProducto" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Campo: Categoría -->
+                <div class="col-lg-6 m-b-16">
+                    <mat-label class="f-w-600 m-b-8 d-block">Categoría</mat-label>
+                    <mat-form-field appearance="outline" class="w-100" color="primary">
+                        <input matInput placeholder="Categoría" formControlName="categoria" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Campo: Estado (Dropdown con acción al cambiar) -->
+                <div class="col-lg-6 m-b-16">
+                    <mat-label class="f-w-600 m-b-8 d-block">Estado</mat-label>
+                    <mat-form-field appearance="outline" class="w-100" color="primary">
+                        <mat-select formControlName="estado" (selectionChange)="desactivarProducto(productoId, $event.value)">
+                            <mat-option value="Activo">Activo</mat-option>
+                            <mat-option value="Inactivo">Inactivo</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
